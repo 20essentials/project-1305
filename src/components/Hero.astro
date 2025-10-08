@@ -1,0 +1,74 @@
+---
+import Camera from './Camera.astro';
+---
+
+<Camera />
+
+<section class='ck'>
+  <h4>有及其平</h4>
+</section>
+
+<script>
+  import { $ } from '@/utils/functions';
+  const $containerPixels = $('.container-pixels');
+  const pixelSize = 10;
+  const containerWidth = $containerPixels.scrollWidth;
+  const containerHeight = $containerPixels.scrollHeight;
+  const cols = ~~(containerWidth / pixelSize);
+  const rows = ~~(containerHeight / pixelSize);
+  for (let row = 0; row <= rows; row++) {
+    for (let col = 0; col <= cols; col++) {
+      const pixel = document.createElement('aside');
+      pixel.classList.add('pixel');
+      pixel.style.width = `${pixelSize}px`;
+      pixel.style.height = `${pixelSize}px`;
+      pixel.style.left = `${col * pixelSize}px`;
+      pixel.style.top = `${row * pixelSize}px`;
+      pixel.style.transitionDelay = `${Math.random()}s`;
+      $containerPixels.appendChild(pixel);
+    }
+  }
+</script>
+
+<style>
+  .container-pixels {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    place-content: center;
+    border: 0.1vmax solid #0004;
+
+    h4 {
+      font-size: 2vmax;
+      color: transparent;
+      position: relative;
+      z-index: 2;
+      -webkit-text-stroke: 0.1vmax black;
+      letter-spacing: 0.3vmax;
+      text-align: center;
+      left: 0.2vmax;
+      color: #fff;
+      transition: color 0.2s ease;
+    }
+
+    .pixel {
+      position: absolute;
+      z-index: 1;
+      background-color: #04aa6d;
+      outline: 0.1vmax solid #0004;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    &:hover {
+      h4 {
+        color: transparent;
+      }
+      .pixel {
+        opacity: 1;
+      }
+    }
+  }
+</style>
